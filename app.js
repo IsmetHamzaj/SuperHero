@@ -17,7 +17,7 @@ const favoriteRoutes = require("./routes/favoriteRoutes")
 const db = require("./database")
 
 
-db.sync({force: true})
+db.sync()
 
 
 //Middle configuration

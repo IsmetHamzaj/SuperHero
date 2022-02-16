@@ -3,7 +3,7 @@ const Sequelize = require("sequelize")
 
 
 const Favorite = db.define("favorites", {
-    hero_Id: {
+    hero_id: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true

@@ -1,37 +1,24 @@
 const Favorite = require("../models/favoriteModel")
 const fetch = require('node-fetch2')
 
-
-const getHeroid = (req, res, id) => {
-    const data = fetch(`https://www.superheroapi.com/api.php/10157652346894910/${id}`)
-}
-
-const getFavorite = async (req, res, id ,next) => {
+const getFavorite = async (req, res ,next) => {
     let model = await Favorite.findAll()
     try {
-        let superhero = {}
-        const {
-            heroid
-        } =req.id
-        if(heroid) {
-            superhero = await getHeroid(req.id.heroid)
-        }
-
         res.status(200).render('favorite', {
             title: "Favorites",
             para: "HI THIS IS THE FAVORITE",
-            model,
-            heroId: req.id.heroid
+            model
         })
     } catch (err) {
         res.status(400).json({
+            status: "Failed",
             message: err.message
         })
     }
 }
 
 const removeFavorites = (req, res) => {
-    let id = req.params.id
+    let id = req.body.id
     Favorite.findOne({
             where: {
                 id: id
@@ -42,7 +29,7 @@ const removeFavorites = (req, res) => {
                 removed.destroy()
                 res.redirect('/favorite')
             } else {
-                res.status(400).json({
+                res.status(200).json({
                     status: "Failed",
                     message: "This favorite doesnt exist"
                 })
@@ -57,23 +44,22 @@ const removeFavorites = (req, res) => {
 }
 
 const addFavorite = (req, res) => {
-        Favorite.create({
-            id: req.body.id
-        })
-        .then((addedFavorite) => {
-            res.status(200).json({
-                status: "Success",
-                message: "Here is the data",
-                data: addedFavorite
-            })
-        })
-        .catch((err) => {
-            res.status(400).json({
-                status: "Failed",
-                message: err.message
-            })
-        })
-}
+    Favorite.create({
+      hero_id: req.body.hero_id,
+    })
+      .then(() => {
+        res.status(200).json({
+          status: "Success",
+          message: "Hero Added Successfuly",
+        });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          status: "Failed",
+          message: err.message,
+        });
+      });
+  };
 
 module.exports = {
     getFavorite,

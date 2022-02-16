@@ -6,9 +6,9 @@ const {
     removeFavorites
 } = require("../controller/favoriteController")
 
-router.post("/:id", removeFavorites)
 router.get("/favorite", getFavorite)
 router.post("/addfavorite", addFavorite)
+router.post("/:id", removeFavorites)
 
 
 
