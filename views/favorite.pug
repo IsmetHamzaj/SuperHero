@@ -1,0 +1,10 @@
+html
+    head
+        title #{title}
+        link(rel="stylesheet", href="css/favorite.css")
+    body               
+                    each hero in model
+                        h1
+                        form(action="/" + hero.id method="post")
+                            button(class="button" type="submit") -
+                        
