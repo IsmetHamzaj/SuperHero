@@ -21,10 +21,11 @@ db.sync()
 
 
 //Middle configuration
-var urlencodedParser = bodyParser.urlencoded({
-    extended: false
-})
-
+app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+);
 app.use(express.json());
 
 
