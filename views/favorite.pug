@@ -5,8 +5,9 @@ html
     body            
         if data.results
                 each hero in data.results
-                    if hero.name
-                            .container
+                    if hero
+                        each hero in model
+                                .container
                                 .movie-card
                                     .heroInformatin
                                     .heroname= hero.name
