@@ -5,16 +5,15 @@ html
     body            
         if HEROID
                 each hero in HEROID
-                    if hero
-                        each hero in HEROID
-                                .container
-                                .movie-card
-                                    .heroInformatin
-                                    .heroname= hero.name
-                                    .fullName= hero[`biography`][`full-name`]
-                                    .alignment= hero.biography.alignment
-                                    .race= hero.appearance.race
-                                    img(src=hero.image.url, alt="" class="heroImage")
+                    if hero.hero_id
+                      .container
+                        .movie-card
+                            .heroInformatin
+                            .heroname= hero.name
+                            .fullName= hero[`biography`][`full-name`]
+                            .alignment= hero.biography.alignment
+                            .race= hero.appearance.race
+                            img(src=hero.image.url, alt="" class="heroImage")
                         form(action="/" + hero.id method="post")
                             button(class="button" type="submit") -
                         
