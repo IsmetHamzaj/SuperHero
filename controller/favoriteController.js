@@ -7,7 +7,9 @@ const fetch = require('node-fetch2')
 const getFavorite = async (req, res, next) => {
     try {
         let HEROID = await Favorite.findAll()
-        const heroid = []
+        const heroid = [
+            data= {} 
+        ]
         HEROID.forEach((hero) => {
             fetch(`https://www.superheroapi.com/api.php/10157652346894910/${hero.hero_id}`)
             .then((res) => {
