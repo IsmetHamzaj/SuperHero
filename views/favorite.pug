@@ -3,10 +3,10 @@ html
         title #{title}
         link(rel="stylesheet", href="css/favorite.css")
     body            
-        if data.results
-                each hero in data.results
+        if HEROID
+                each hero in HEROID
                     if hero
-                        each hero in model
+                        each hero in HEROID
                                 .container
                                 .movie-card
                                     .heroInformatin

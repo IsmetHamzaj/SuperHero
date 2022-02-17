@@ -5,36 +5,28 @@ const fetch = require('node-fetch2')
 
 
 const getFavorite = async (req, res, next) => {
-    let model = await Favorite.findAll()
     try {
-        let data = []
-        const {
-            heroid
-        } = req.id;
-
-        if (heroid) {
-            data = await hero(req.id.heroid)
-        }
-        await res.status(200).render('favorite', {
-            title: "Favorites",
-            para: "HI THIS IS THE FAVORITE",
-            model,
-            message: data?.message ,  data
+        let HEROID = await Favorite.findAll()
+        const heroid = []
+        HEROID.forEach((hero) => {
+            fetch(`https://www.superheroapi.com/api.php/10157652346894910/${hero.hero_id}`)
+            .then((res) => {
+                heroid.push(res)
+            })
         })
-    } catch (err) {
-        res.status(400).json({
-            status: "Failed",
-            message: err.message,
-        })
-    }
-}
 
-const hero = async (id) => await fetch(`https://www.superheroapi.com/api.php/10157652346894910/${id}`)
-    .then(res => res.json())
-    .catch((err) => {
-        throw new Error('Failed to load Heroes')
+    await res.status(200).render('favorite', {
+        title: "Favorites",
+        para: "HI THIS IS THE FAVORITE",
+        message: HEROID?.message,
     })
-
+} catch (err) {
+    res.status(400).json({
+        status: "Failed",
+        message: err.message,
+    })
+}
+}
 
 const removeFavorites = (req, res) => {
     let id = req.params.id
@@ -74,7 +66,7 @@ const addFavorite = (req, res) => {
             res.redirect('/')
         })
         .catch((err) => {
-           res.redirect('/')
+            res.redirect('/')
         });
 };
 
