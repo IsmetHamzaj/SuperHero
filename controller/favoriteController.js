@@ -7,13 +7,13 @@ const fetch = require('node-fetch2')
 const getFavorite = async (req, res, next) => {
     let model = await Favorite.findAll()
     try {
-        let data = {}
+        let data = []
         const {
             heroid
-        } = req.hero;
+        } = req.id;
 
         if (heroid) {
-            data = await hero(req.hero.heroid)
+            data = await hero(req.id.heroid)
         }
         await res.status(200).render('favorite', {
             title: "Favorites",
@@ -29,7 +29,7 @@ const getFavorite = async (req, res, next) => {
     }
 }
 
-const hero = async (hero) => await fetch(`https://www.superheroapi.com/api.php/10157652346894910/${hero}`)
+const hero = async (id) => await fetch(`https://www.superheroapi.com/api.php/10157652346894910/${id}`)
     .then(res => res.json())
     .catch((err) => {
         throw new Error('Failed to load Heroes')

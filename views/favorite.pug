@@ -3,11 +3,17 @@ html
         title #{title}
         link(rel="stylesheet", href="css/favorite.css")
     body            
-        each hero in model  
-                        h1= hero.name
-                        h1= hero.full_name 
-                        h1= hero.alignment
-                        h1= hero.race
+        if data.results
+                each hero in data.results
+                    if hero.name
+                            .container
+                                .movie-card
+                                    .heroInformatin
+                                    .heroname= hero.name
+                                    .fullName= hero[`biography`][`full-name`]
+                                    .alignment= hero.biography.alignment
+                                    .race= hero.appearance.race
+                                    img(src=hero.image.url, alt="" class="heroImage")
                         form(action="/" + hero.id method="post")
                             button(class="button" type="submit") -
                         
