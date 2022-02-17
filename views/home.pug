@@ -22,7 +22,12 @@ html(lang="en")
                                     .race= hero.appearance.race
                                     img(src=hero.image.url, alt="" class="heroImage")
                                     form(action="/addfavorite" method="post")
-                                        input(type="hidden" name="hero_id" value=heroid)
+                                        input(type="hidden" name="hero_id" value=hero.id)
+                                        input(type="hidden" name="name" value=hero.name)
+                                        input(type="hidden" name="full_name" value=hero[`biography`][`full-name`])
+                                        input(type="hidden" name="alignment" value= hero.biography.alignment)
+                                        input(type="hidden" name="race" value= hero.appearance.race)
+                                        input(type="hidden" name="img" value= hero.image.url)
                                         button(class="button" type="submit") +
             else 
                 p= message
