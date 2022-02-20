@@ -2,18 +2,14 @@ html
     head
         title #{title}
         link(rel="stylesheet", href="css/favorite.css")
-    body            
-        if HEROID
-                each hero in HEROID
-                    if hero.hero_id
-                      .container
+    body
+        if heroes
+            each hero in heroes
+                if heroes.id
+                    .container
                         .movie-card
                             .heroInformatin
-                            .heroname= hero.name
-                            .fullName= hero[`biography`][`full-name`]
-                            .alignment= hero.biography.alignment
-                            .race= hero.appearance.race
-                            img(src=hero.image.url, alt="" class="heroImage")
-                        form(action="/" + hero.id method="post")
-                            button(class="button" type="submit") -
-                        
+                                h1= hero.hero_id
+                    form(action="/" + hero.id method="post")
+                        button(class="button" type="submit") -
+                            

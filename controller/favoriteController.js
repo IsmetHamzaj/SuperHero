@@ -6,21 +6,22 @@ const fetch = require('node-fetch2')
 
 const getFavorite = async (req, res, next) => {
     try {
-        let HEROID = await Favorite.findAll()
-        const heroid = [
-            data= {} 
-        ]
-        HEROID.forEach((hero) => {
-            fetch(`https://www.superheroapi.com/api.php/10157652346894910/${hero.hero_id}`)
-            .then((res) => {
-                heroid.push(res)
-            })
-        })
+        let heroesIDs = await Favorite.findAll()
+        const heroes = []
 
+        console.log('heores:', heroesIDs)
+
+        heroesIDs.forEach((hero) => {
+            fetch(`https://www.superheroapi.com/api.php/10157652346894910/${hero=heroesIDs.hero_id}`)
+                .then((res) => {
+                    heroes.push(res)
+                })
+        })
+        
     await res.status(200).render('favorite', {
         title: "Favorites",
         para: "HI THIS IS THE FAVORITE",
-        message: HEROID?.message,
+        heroes,
     })
 } catch (err) {
     res.status(400).json({
