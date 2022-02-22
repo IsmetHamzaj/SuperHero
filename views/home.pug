@@ -7,7 +7,14 @@ html(lang="en")
         link(rel="stylesheet", href="css/home.css")
         title #{title}
     body   
-            form.hero(action="/")
+            nav
+                ul 
+                    li 
+                        a(href="/") Home
+                ul 
+                    li 
+                        a(href="/favorite") Favorite
+                form.hero(action="/")
                         input(type="text" placeholder="Movie-Name" name="hero" class="searchBar" value=searchTerm)
                         button Search
             if data.results
@@ -15,19 +22,20 @@ html(lang="en")
                     if hero.name
                             .container
                                 .movie-card
-                                    .heroInformatin
-                                    .heroname= hero.name
-                                    .fullName= hero[`biography`][`full-name`]
-                                    .alignment= hero.biography.alignment
-                                    .race= hero.appearance.race
-                                    img(src=hero.image.url, alt="" class="heroImage")
-                                    form(action="/addfavorite" method="post")
-                                        input(type="hidden" name="hero_id" value=hero.id)
-                                        //- input(type="hidden" name="name" value=hero.name)
-                                        //- input(type="hidden" name="full_name" value=hero[`biography`][`full-name`])
-                                        //- input(type="hidden" name="alignment" value= hero.biography.alignment)
-                                        //- input(type="hidden" name="race" value= hero.appearance.race)
-                                        //- input(type="hidden" name="img" value= hero.image.url)
-                                        button(class="button" type="submit") +
+                                        .layout
+                                        img(src=hero.image.url, alt="" class="heroImage")
+                                        .heroInformation
+                                            .heroname(name="")= hero.name
+                                            .fullName= hero[`biography`][`full-name`]
+                                            .alignment= hero.biography.alignment
+                                            .race= hero.appearance.race
+                                            form(action="/addfavorite" method="post")
+                                                input(type="hidden" name="hero_id" value=hero.id)
+                                                //- input(type="hidden" name="name" value=hero.name)
+                                                //- input(type="hidden" name="full_name" value=hero[`biography`][`full-name`])
+                                                //- input(type="hidden" name="alignment" value= hero.biography.alignment)
+                                                //- input(type="hidden" name="race" value= hero.appearance.race)
+                                                //- input(type="hidden" name="img" value= hero.image.url)
+                                                button(class="button" type="submit") +
             else 
                 p= message

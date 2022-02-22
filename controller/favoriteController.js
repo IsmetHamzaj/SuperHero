@@ -9,19 +9,17 @@ const getFavorite = async (req, res, next) => {
         let heroesIDs = await Favorite.findAll()
         const heroes = []
 
-        console.log('heores:', heroesIDs)
+        for(const id of heroesIDs) {
+            let response = await fetch(`https://www.superheroapi.com/api.php/10157652346894910/${id.hero_id}`)
+            let resp = await response.json()
+            heroes.push(resp)
+        }
 
-        heroesIDs.forEach((hero) => {
-            fetch(`https://www.superheroapi.com/api.php/10157652346894910/${hero=heroesIDs.hero_id}`)
-                .then((res) => {
-                    heroes.push(res)
-                })
-        })
+        
         
     await res.status(200).render('favorite', {
         title: "Favorites",
-        para: "HI THIS IS THE FAVORITE",
-        heroes,
+        data: heroes
     })
 } catch (err) {
     res.status(400).json({
@@ -33,11 +31,7 @@ const getFavorite = async (req, res, next) => {
 
 const removeFavorites = (req, res) => {
     let id = req.params.id
-    Favorite.findOne({
-            where: {
-                id: id
-            }
-        })
+    Favorite.findOne({ id })
         .then((removed) => {
             if (removed) {
                 removed.destroy()
@@ -66,7 +60,7 @@ const addFavorite = (req, res) => {
             // img: req.body.img
         })
         .then(() => {
-            res.redirect('/')
+            res.redirect('/favorite')
         })
         .catch((err) => {
             res.redirect('/')

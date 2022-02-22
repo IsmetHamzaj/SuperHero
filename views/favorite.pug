@@ -3,13 +3,25 @@ html
         title #{title}
         link(rel="stylesheet", href="css/favorite.css")
     body
-        if heroes
-            each hero in heroes
-                if heroes.id
+        nav
+            ul 
+                li 
+                    a(href="/") Home
+            ul 
+                li 
+                    a(href="/favorite") Favorite
+        if data && data.length
+                each hero in data
                     .container
                         .movie-card
-                            .heroInformatin
-                                h1= hero.hero_id
-                    form(action="/" + hero.id method="post")
-                        button(class="button" type="submit") -
+                            .layout
+                                img(src=hero.image.url, alt="" class="heroImage")
+                                .heroInformation
+                                    .heroname(name="")= hero.name
+                                    .fullName= hero[`biography`][`full-name`]
+                                    .alignment= hero.biography.alignment
+                                    .race= hero.appearance.race
+                                    form(action="/" + hero.id method="post")
+                                        button(class="button" type="submit") -
+                    
                             
